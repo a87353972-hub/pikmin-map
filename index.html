@@ -6,71 +6,6 @@
     <title>皮克敏明信片座標收集站 (即時更新版)</title>
     <style>
         :root { --primary-color: #71b33c; --bg-color: #f4f9f0; --card-bg: #ffffff; --text-color: #333333; }
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 10px; } /* 💡 手機邊距縮小到 10px，挪出更多空間 */
-        header { text-align: center; margin-bottom: 20px; }
-        h1 { color: var(--primary-color); font-size: 22px; } /* 💡 標題也縮小一點符合手機 */
-        .filter-container { max-width: 1200px; margin: 0 auto 15px auto; background: var(--card-bg); padding: 12px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; gap: 10px; flex-wrap: wrap; }
-        select { padding: 6px 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 13px; flex: 1; min-width: 100px; }
-
-        /* 💻 電腦版/大螢幕排版（維持原本的多欄，並排多張） */
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-            gap: 12px; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-        }
-        
-        .card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.06); transition: transform 0.2s; display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-5px); }
-        
-        /* ⭕ 圖片顯示優化：高度調成 160px，縮小一點點，用 contain 完整不裁切 */
-        .card-img { width: 100%; height: 160px; object-fit: contain; background-color: #f5f8f2; }
-        .card-content { padding: 10px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        
-        /* ⭕ 字體微調，標題太長會自動變「...」不折行，維持乾淨 */
-        .card-title { font-size: 14px; font-weight: bold; margin: 0 0 6px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        
-        .tags { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
-        .tag { font-size: 11px; padding: 2px 6px; border-radius: 20px; font-weight: bold; white-space: nowrap; }
-        .tag-country { background: #e1f5fe; color: #0288d1; }
-        .tag-type { background: #e8f5e9; color: #388e3c; }
-        .tag-collect { background: #fff3e0; color: #e65100; } 
-        
-        .copy-btn { width: 100%; background-color: var(--primary-color); color: white; border: none; padding: 8px; border-radius: 8px; font-size: 12px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
-        .copy-btn:hover { background-color: #5c992e; }
-        .copy-btn.copied { background-color: #333; }
-        .loading { text-align: center; font-size: 16px; color: #666; margin-top: 50px; }
-
-        /* 📱 關鍵加強：當螢幕寬度小於 600px（也就是手機版）時，啟用以下特殊規則 */
-        @media (max-width: 600px) {
-            .grid {
-                /* ⭕ 核心修正：強制將卡片分為兩欄，每欄各佔一半空間 (50%)，間距改為 8px */
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 8px !important;
-            }
-            .card {
-                border-radius: 10px !important; /* 💡 手機版卡片圓角縮小一點點 */
-            }
-            .card-img {
-                height: 130px !important; /* 💡 手機版圖片高度跟著稍微縮小，更精緻 */
-            }
-            .card-content {
-                padding: 8px !important; /* 💡 手機版內邊距縮小，留位置給標籤 */
-            }
-            .card-title {
-                font-size: 13px !important; /* 💡 標題字體縮小 */
-                margin-bottom: 4px !important;
-            }
-            .tag {
-                font-size: 10px !important; /* 💡 標籤字體縮小 */
-                padding: 1px 4px !important;
-            }
-            .copy-btn {
-                padding: 6px !important; font-size: 11px !important; /* 💡 按鈕縮小符合右圖 */
-            }
-        }
-        /*:root { --primary-color: #71b33c; --bg-color: #f4f9f0; --card-bg: #ffffff; --text-color: #333333; }
         body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 20px; }
         header { text-align: center; margin-bottom: 30px; }
         h1 { color: var(--primary-color); }
@@ -86,11 +21,11 @@
         .tag { font-size: 12px; padding: 4px 8px; border-radius: 20px; font-weight: bold; }
         .tag-country { background: #e1f5fe; color: #0288d1; }
         .tag-type { background: #e8f5e9; color: #388e3c; }
-        .tag-collect { background: #fff3e0; color: #e65100; } /* 💡 幫你補上橘色收集標籤樣式 
+        .tag-collect { background: #fff3e0; color: #e65100; } /* 💡 幫你補上橘色收集標籤樣式 */
         .copy-btn { width: 100%; background-color: var(--primary-color); color: white; border: none; padding: 10px; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
         .copy-btn:hover { background-color: #5c992e; }
         .copy-btn.copied { background-color: #333; }
-        .loading { text-align: center; font-size: 18px; color: #666; margin-top: 50px; } */
+        .loading { text-align: center; font-size: 18px; color: #666; margin-top: 50px; } 
     </style> 
 </head>
 <body>
