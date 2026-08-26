@@ -21,6 +21,7 @@
         .tag { font-size: 12px; padding: 4px 8px; border-radius: 20px; font-weight: bold; }
         .tag-country { background: #e1f5fe; color: #0288d1; }
         .tag-type { background: #e8f5e9; color: #388e3c; }
+        .tag-collect { background: #fff3e0; color: #e65100; } /* 💡 幫你補上橘色收集標籤樣式 */
         .copy-btn { width: 100%; background-color: var(--primary-color); color: white; border: none; padding: 10px; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
         .copy-btn:hover { background-color: #5c992e; }
         .copy-btn.copied { background-color: #333; }
@@ -54,7 +55,7 @@
             <option value="壁畫">壁畫</option>
         </select>
         <select id="collectFilter" onchange="filterCards()">
-            <option value="all">🌸🍄 收集方式</option>
+            <option value="all">🌸🍄 所有收集方式</option>
             <option value="菇點">菇點🍄</option>
             <option value="花點">花點🌸</option>
         </select>
@@ -64,7 +65,6 @@
     <div class="grid" id="postcardGrid" style="display: none;"></div>
 
     <script>
-        // ⚠️ 請把下方網址替換成你的 Google Apps Script 網頁應用程式 URL
         const API_URL = "https://script.google.com/macros/s/AKfycbw3AxkzLI9D7jU5fRe2mcEET8RzMDAxYIFcw3VdQrYpAE3FVtBrqck48C4C9ky2Pkc/exec"; 
 
         let allData = [];
@@ -86,25 +86,28 @@
         // 渲染卡片到畫面上
         function renderCards(data) {
             const grid = document.getElementById('postcardGrid');
-            grid.innerHTML = ''; // 清空原本內容
+            grid.innerHTML = ''; 
 
             data.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.setAttribute('data-country', item.國家);
-                card.setAttribute('data-type', item.類型);
-                card.setAttribute('data-collect', item.種類);
+                card.setAttribute('data-country', item.國家 || '');
+                card.setAttribute('data-type', item.類型 || '');
+                card.setAttribute('data-collect', item.種類 || ''); // ⚠️ 對應你表格第一列叫「種類」
+
+                // 💡 幫你加入 Imgur 以外的圖片防錯預設
+                const imageUrl = item.照片 || 'https://placeholder.com';
 
                 card.innerHTML = `
-                    <img class="card-img" src="${item.照片 || 'https://placeholder.com'}" alt="${item.名稱}">
+                    <img class="card-img" src="${imageUrl}" alt="${item.名稱 || '皮克敏'}" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='https://placeholder.com';">
                     <div class="card-content">
-                        <div class="card-title">${item.名稱}</div>
+                        <div class="card-title">${item.名稱 || '無題'}</div>
                         <div class="tags">
-                            <span class="tag tag-country">${item.國家}</span>
-                            <span class="tag tag-type">${item.類型}</span>
-                            <span class="tag tag-collect">${item.種類}</span>
+                            <span class="tag tag-country">${item.國家 || '未分類'}</span>
+                            <span class="tag tag-type">${item.類型 || '一般'}</span>
+                            <span class="tag tag-collect">${item.種類 || '其他'}</span>
                         </div>
-                        <button class="copy-btn" onclick="copyCoords('${item.座標}', this)">📋 複製座標</button>
+                        <button class="copy-btn" onclick="copyCoords('${item.座標 || ''}', this)">📋 複製座標</button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -113,6 +116,7 @@
 
         // 一鍵複製功能
         function copyCoords(coords, button) {
+            if(!coords) { alert('這張明信片沒有填寫座標喔！'); return; }
             navigator.clipboard.writeText(coords).then(() => {
                 const originalText = button.innerText;
                 button.innerText = "✅ 已複製！";
@@ -130,15 +134,20 @@
         function filterCards() {
             const countryValue = document.getElementById('countryFilter').value;
             const typeValue = document.getElementById('typeFilter').value;
+            const collectValue = document.getElementById('collectFilter').value; // 💡 修正 1：補上獲取收集方式的值
             const cards = document.querySelectorAll('.card');
 
             cards.forEach(card => {
                 const cardCountry = card.getAttribute('data-country');
                 const cardType = card.getAttribute('data-type');
+                const cardCollect = card.getAttribute('data-collect'); // 💡 修正 2：補上獲取卡片的屬性
+
                 const countryMatch = (countryValue === 'all' || cardCountry === countryValue);
                 const typeMatch = (typeValue === 'all' || cardType === typeValue);
+                const collectMatch = (collectValue === 'all' || cardCollect === collectValue); // 💡 修正 3：補上篩選對比
 
-                card.style.display = (countryMatch && typeMatch) ? 'block' : 'none';
+                // 💡 三個條件同時成立才顯示
+                card.style.display = (countryMatch && typeMatch && collectMatch) ? 'block' : 'none';
             });
         }
     </script>
