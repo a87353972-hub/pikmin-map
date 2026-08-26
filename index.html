@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>皮克敏明信片座標分享站 (即時更新版)</title>
+    <title>皮克敏明信片座標收集站 (即時更新版)</title>
     <style>
         :root { --primary-color: #71b33c; --bg-color: #f4f9f0; --card-bg: #ffffff; --text-color: #333333; }
         body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 20px; }
@@ -31,7 +31,7 @@
 
     <header>
         <h1>🌱 皮克敏明信片座標地圖分享 🌱</h1>
-        <p>連動 Google 表格版！在表格修改，這裡重新整理就會同步更新！</p>
+        <p>我連動了 Google 表格，在表格修改，這裡重新整理就會同步更新！</p>
     </header>
 
     <div class="filter-container">
@@ -40,6 +40,10 @@
             <option value="台灣">台灣</option>
             <option value="日本">日本</option>
             <option value="美國">美國</option>
+            <option value="德國">德國</option>
+            <option value="義大利">義大利</option>
+            <option value="挪威">挪威</option>
+            <option value="待分類">待分類</option>
         </select>
         <select id="typeFilter" onchange="filterCards()">
             <option value="all">🏷️ 所有類型</option>
@@ -47,6 +51,7 @@
             <option value="建築">建築</option>
             <option value="動漫">動漫</option>
             <option value="藝術">藝術</option>
+            <option value="壁畫">壁畫</option>
         </select>
     </div>
 
