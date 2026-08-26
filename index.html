@@ -81,7 +81,7 @@
 
     <div class="filter-container">
         <select id="countryFilter" onchange="filterCards()">
-            <option value="all">🌍 國家/地區</option>
+            <option value="all">🌍 所有國家/地區</option>
             <option value="台灣">台灣</option>
             <option value="日本">日本</option>
             <option value="美國">美國</option>
@@ -91,7 +91,7 @@
             <option value="待分類">待分類</option>
         </select>
         <select id="typeFilter" onchange="filterCards()">
-            <option value="all">🏷️ 類型</option>
+            <option value="all">🏷️ 所有類型</option>
             <option value="風景">風景</option>
             <option value="建築">建築</option>
             <option value="動漫">動漫</option>
@@ -99,7 +99,7 @@
             <option value="壁畫">壁畫</option>
         </select>
         <select id="collectFilter" onchange="filterCards()">
-            <option value="all">🌸🍄 收集方式</option>
+            <option value="all">🌸🍄 所有收集方式</option>
             <option value="菇點">菇點🍄</option>
             <option value="花點">花點🌸</option>
         </select>
@@ -108,8 +108,8 @@
     <div id="loading" class="loading">正在從 Google 表格載入最新明信片資料...</div>
     <div class="grid" id="postcardGrid" style="display: none;"></div>
 
-    <script> //貼上網頁應用程式
-        const API_URL = "https://script.google.com/macros/s/AKfycbw3AxkzLI9D7jU5fRe2mcEET8RzMDAxYIFcw3VdQrYpAE3FVtBrqck48C4C9ky2Pkc/exec"; 
+    <script>
+        const API_URL = "https://google.com"; 
 
         let allData = [];
 
