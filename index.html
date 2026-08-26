@@ -11,6 +11,43 @@
         h1 { color: var(--primary-color); }
         .filter-container { max-width: 1200px; margin: 0 auto 20px auto; background: var(--card-bg); padding: 15px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; gap: 15px; flex-wrap: wrap; }
         select { padding: 8px 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; }
+        
+        /* ⭕ 修正 1：把原本的 280px 縮小到 200px，間距從 20px 縮小到 12px，卡片並排數變多 */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; max-width: 1200px; margin: 0 auto; }
+        
+        /* ⭕ 修正 2：卡片圓角稍微縮小到 12px，更符合小卡片的比例 */
+        .card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.08); transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+        
+        /* ⭕ 修正 3：高度調整為 200px，最重要的是將 cover 改為 contain，明信片完整顯示不裁切！ */
+        .card-img { width: 100%; height: 200px; object-fit: contain; background-color: #f1f5ee; }
+        
+        /* ⭕ 修正 4：內邊距稍微縮小到 10px，讓內容更緊湊 */
+        .card-content { padding: 10px; }
+        
+        /* ⭕ 修正 5：字體大小從 18px 縮小到 14px，標題才不會因為卡片變小而嚴重折行 */
+        .card-title { font-size: 14px; font-weight: bold; margin: 0 0 8px 0; }
+        
+        /* ⭕ 修正 6：標籤間距縮小 */
+        .tags { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
+        
+        /* ⭕ 修正 7：標籤字體和內邊距同步縮小，看起來更精緻 */
+        .tag { font-size: 11px; padding: 2px 6px; border-radius: 20px; font-weight: bold; }
+        .tag-country { background: #e1f5fe; color: #0288d1; }
+        .tag-type { background: #e8f5e9; color: #388e3c; }
+        .tag-collect { background: #fff3e0; color: #e65100; } 
+        
+        /* ⭕ 修正 8：複製按鈕的文字大小稍微調小，符合整體比例 */
+        .copy-btn { width: 100%; background-color: var(--primary-color); color: white; border: none; padding: 8px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+        .copy-btn:hover { background-color: #5c992e; }
+        .copy-btn.copied { background-color: #333; }
+        .loading { text-align: center; font-size: 18px; color: #666; margin-top: 50px; }
+        /*:root { --primary-color: #71b33c; --bg-color: #f4f9f0; --card-bg: #ffffff; --text-color: #333333; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 20px; }
+        header { text-align: center; margin-bottom: 30px; }
+        h1 { color: var(--primary-color); }
+        .filter-container { max-width: 1200px; margin: 0 auto 20px auto; background: var(--card-bg); padding: 15px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; gap: 15px; flex-wrap: wrap; }
+        select { padding: 8px 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
         .card { background: var(--card-bg); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.08); transition: transform 0.2s; }
         .card:hover { transform: translateY(-5px); }
@@ -21,12 +58,12 @@
         .tag { font-size: 12px; padding: 4px 8px; border-radius: 20px; font-weight: bold; }
         .tag-country { background: #e1f5fe; color: #0288d1; }
         .tag-type { background: #e8f5e9; color: #388e3c; }
-        .tag-collect { background: #fff3e0; color: #e65100; } /* 💡 幫你補上橘色收集標籤樣式 */
+        .tag-collect { background: #fff3e0; color: #e65100; } /* 💡 幫你補上橘色收集標籤樣式 
         .copy-btn { width: 100%; background-color: var(--primary-color); color: white; border: none; padding: 10px; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
         .copy-btn:hover { background-color: #5c992e; }
         .copy-btn.copied { background-color: #333; }
-        .loading { text-align: center; font-size: 18px; color: #666; margin-top: 50px; }
-    </style>
+        .loading { text-align: center; font-size: 18px; color: #666; margin-top: 50px; } */
+    </style> 
 </head>
 <body>
 
