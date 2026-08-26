@@ -93,6 +93,7 @@
                 card.className = 'card';
                 card.setAttribute('data-country', item.國家);
                 card.setAttribute('data-type', item.類型);
+                card.setAttribute('data-collect', item.種類);
 
                 card.innerHTML = `
                     <img class="card-img" src="${item.照片 || 'https://placeholder.com'}" alt="${item.名稱}">
@@ -101,6 +102,7 @@
                         <div class="tags">
                             <span class="tag tag-country">${item.國家}</span>
                             <span class="tag tag-type">${item.類型}</span>
+                            <span class="tag tag-collect">${item.種類}</span>
                         </div>
                         <button class="copy-btn" onclick="copyCoords('${item.座標}', this)">📋 複製座標</button>
                     </div>
